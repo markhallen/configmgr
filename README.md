@@ -1,0 +1,2 @@
+# configmgr
+Configuration Manager automation
