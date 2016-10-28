@@ -1,0 +1,62 @@
+ParentRoot,ChildOne,ChildTwo,ChildThree
+Application,,,
+Application,A-F,,
+Application,G-L,,
+Application,M-R,,
+Application,S-Z,,
+Application,Z-SCCM Admins,,
+BootImage,,,
+ConfigurationBaseline,,,
+ConfigurationItem,,,
+DeviceCollection,,,
+DeviceCollection,Applications,,
+DeviceCollection,Applications,Install,
+DeviceCollection,Applications,Install,-Profile
+DeviceCollection,Applications,Install,A-F
+DeviceCollection,Applications,Install,G-L
+DeviceCollection,Applications,Install,M-R
+DeviceCollection,Applications,Install,S-Z
+DeviceCollection,Applications,Uninstall,
+DeviceCollection,Applications,Uninstall,A-F
+DeviceCollection,Applications,Uninstall,G-L
+DeviceCollection,Applications,Uninstall,M-R
+DeviceCollection,Applications,Uninstall,S-Z
+DeviceCollection,OSD,,
+DeviceCollection,OSD,OSD Build and Capture,
+DeviceCollection,OSD,OSD Deployment,
+DeviceCollection,OSD,OSD Deployment,WIN7
+DeviceCollection,OSD,OSD Deployment,WIN10
+DeviceCollection,OSD,Test,
+DeviceCollection,Software Updates,,
+DeviceCollection,Software Updates,Pilot,
+DeviceCollection,Software Updates,Production,
+DeviceCollection,Test,,
+DeviceCollection,Test,Admins,
+Driver,,,
+OperatingSystemImage,,,
+OperatingSystemInstaller,,,
+Package,,,
+Package,A-F,,
+Package,G-L,,
+Package,M-R,,
+Package,S-Z,,
+Package,Z-SCCM Admins,,
+Query,,,
+SoftwareMetering,,,
+TaskSequence,,,
+TaskSequence,Deployment,,
+TaskSequence,Task execution,,
+UserCollection,,,
+UserCollection,Applications,,
+UserCollection,Applications,Install,
+UserCollection,Applications,Install,-Profile
+UserCollection,Applications,Install,A-F
+UserCollection,Applications,Install,G-L
+UserCollection,Applications,Install,M-R
+UserCollection,Applications,Install,S-Z
+UserCollection,Applications,Uninstall,
+UserCollection,Applications,Uninstall,A-F
+UserCollection,Applications,Uninstall,G-L
+UserCollection,Applications,Uninstall,M-R
+UserCollection,Applications,Uninstall,S-Z
+UserCollection,Admins,,
