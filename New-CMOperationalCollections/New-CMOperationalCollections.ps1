@@ -12,7 +12,7 @@ param(
  [ValidateScript({Test-Path $(Split-Path $_) -PathType 'Container'})] 
  [string]$Path,
  [string]$LimitingCollection = 'All Systems',
- [String]$Organization = $null,
+ [String]$Organization = '',
  [String]$FolderName = 'Operational',
  [String]$RecurInterval = 'Days',
  [Int]$RecurCount = 7
@@ -29,12 +29,12 @@ $CurrentDrive = "$($pwd.Drive.Name):"
 Import-Module ($env:SMS_ADMIN_UI_PATH.Substring(0,$env:SMS_ADMIN_UI_PATH.Length – 5) + '\ConfigurationManager.psd1') | Out-Null
 
 #CM12 cmdlets need to be run from the CM12 drive
-Set-Location "$($SiteCode):" | Out-Null
 if (-not (Get-PSDrive -Name $SiteCode))
-    {
-        Write-Error "There was a problem loading the Configuration Manager powershell module and accessing the site's PSDrive."
-        exit 1
-    }
+{
+    Write-Error "There was a problem loading the Configuration Manager powershell module and accessing the site's PSDrive."
+    exit 1
+}
+Set-Location "$($SiteCode):" | Out-Null
 
 Function New-CMOperationalCollection
 {
@@ -57,16 +57,16 @@ Function New-CMOperationalCollection
             $LimitingCollection
     )
 
-    Write-Host -ForegroundColor Yellow (" - Creating collection $CollectionName")
+    Write-Host -ForegroundColor Green (" - Creating collection $CollectionName")
     New-CMDeviceCollection -Name $CollectionName -Comment $Description -LimitingCollectionName $LimitingCollection -RefreshSchedule $Schedule -RefreshType 2 | Out-Null
         
     Write-Host -ForegroundColor Yellow (" - Adding query to the collection")
     $RuleName = $CollectionName -replace '\s',''
-    Add-CMDeviceCollectionQueryMembershipRule -CollectionName $CollectionName -QueryExpression $Query -RuleName $RuleName -Verbose
+    Add-CMDeviceCollectionQueryMembershipRule -CollectionName $CollectionName -QueryExpression $Query -RuleName $RuleName | Out-Null
 
     #Move the collection to the correct folder
     if (Test-Path $FolderPath) {
-        Write-Host -ForegroundColor Yellow (" - Moving $CollectionName to $FolderPath")
+        Write-Host -ForegroundColor White (" - Moving $CollectionName to $FolderPath")
         Move-CMObject -FolderPath $FolderPath -InputObject (Get-CMDeviceCollection -Name $CollectionName)
     }
 }
@@ -97,7 +97,7 @@ Write-Host -ForegroundColor Green (" - The limiting collection $LimitingCollecti
 $ParentPath = $RootFolder
 
 # create an organization folder if required
-if($Organization -ne $null)
+if($Organization -ne '')
 {
     $ParentPath = $ParentPath + "\" + $Organization
     if (!(Test-Path $ParentPath))
@@ -131,7 +131,7 @@ foreach ($Coll in $OperationalCollections.Collections.Collection)
         # Check install collection exists
         if($CollectionTest.Name -eq $CollectionName)
         {
-            Write-Host -ForegroundColor Yellow (" - $CollectionName already exists.")
+            Write-Host -ForegroundColor Green (" - $CollectionName already exists.")
             Continue
         }
         New-CMOperationalCollection -CollectionName $CollectionName -Query $Coll.Query -Description $Coll.Description -Schedule $Schedule -FolderPath $FolderPath -LimitingCollection $LimitingCollection
