@@ -1,7 +1,36 @@
-﻿# Description:  Create a default set of folders in Configuration Manager
-# Created:      27/10/2016
-# Author:       Mark Allen
-# Usage:        .\New-CMFolders.ps1 -SiteCode PR1 -Path \\%PathToCSVFile% -CustDirectory "PST"
+﻿<#
+.SYNOPSIS
+ Create a default set of folders in Configuration Manager
+
+ .DESCRIPTION
+ Will accept a CSV file of the desired folder structure and create the folders in Configuration Manager.
+
+.PARAMETER SiteCode
+ 3-character site code
+
+.PARAMETER Path
+ Full or relative path to the CSV file containing the desired folder structure
+
+.PARAMETER CustDirectory
+ [Optional] allows a default top level directory to be defined. This is useful 
+ for a hierarchy that is shared between distinct departments or organizational units.
+
+.NOTES
+ Author: Mark Allen
+ Created: 27/10/2016
+ Blog: http://www.markallenit.com/blog/?p=148
+
+.EXAMPLE
+ .\New-CMFolders.ps1 -SiteCode PR1 -Path .\MyFolderStructure.csv
+ Will create the folders in the root node of each object type.
+ EG Application node > MyDir
+
+.EXAMPLE
+ .\New-CMFolders.ps1 -SiteCode PR1 -Path .\MyFolderStructure.csv -CustDirectory "Test"
+ Will create a "Test" folder in the root node of each object type; subfolders will be
+ created with the relevant "Test" folder.
+ EG Application node > Test > MyDir
+#>
 
 [CmdletBinding( SupportsShouldProcess = $False, ConfirmImpact = "None", DefaultParameterSetName = "" ) ]
 param(
