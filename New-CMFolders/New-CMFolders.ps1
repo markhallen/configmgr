@@ -18,7 +18,9 @@
 .NOTES
  Author: Mark Allen
  Created: 27/10/2016
- Blog: http://www.markallenit.com/blog/?p=148
+ 
+.LINK
+ http://www.markallenit.com/blog/?p=148
 
 .EXAMPLE
  .\New-CMFolders.ps1 -SiteCode PR1 -Path .\MyFolderStructure.csv
