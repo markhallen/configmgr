@@ -57,7 +57,7 @@ function Get-JavaHomeLocation
 # create  array for the certificates that should be imported
 # The item is the certificate alias
 # eg $Certificates = @('my-alias-1','my-alias-2')
-$Certificates = @('comodo-certauth','comodo-codesign')
+$Certificates = @('my-alias-1','my-alias-2')
 <#
  *** End customisation ***
 #>

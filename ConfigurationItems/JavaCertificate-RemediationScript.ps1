@@ -55,11 +55,11 @@ function Get-JavaHomeLocation
  *** Customise here only ***
 #>
 # define the publicly acccessible folder that will store certificate files (*.cer)
-$ExternalFileStore = '\\WMOGVASCCM01\PkgSrc$\Apps\WMO_COMODO_Certificates\'
+$ExternalFileStore = '\\SERVER\Share\Certificates\'
 # create  a hash table for the certificates that should be imported
 # The key is the certificate alias and the item is the certificate file name
 # eg $Certificates = @{'my-alias-1' = 'MyCertificate-1.cer';'my-alias-2' = 'MyCertificate-2.cer'}
-$Certificates = @{'comodo-certauth' = 'COMODO-RSA-CertificationAuthority.cer';'comodo-codesign' = 'COMODO-RSA-CodeSigningCA.cer'}
+$Certificates = @{'my-alias-1' = 'MyCertificate-1.cer';'my-alias-2' = 'MyCertificate-2.cer'}
 <#
  *** End customisation ***
 #>
