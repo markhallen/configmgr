@@ -77,7 +77,7 @@ $LogFile = $JavaHome + '\lib\security\import-certificates.log'
  Test that all the relevant paths have been formed correctly
 #>
 if (!(Test-Path $ExternalFileStore)) {"Can't access $ExternalFileStore" | Add-Content $LogFile; exit 1}
-if (!(Test-Path $JavaHome)) {"Can't find $JavaHome" | Add-Content $LogFile; exit 1}
+if (!(Test-Path $JavaHome)) {"JavaHome error: $JavaHome" | Add-Content $LogFile; exit 1}
 if (!(Test-Path $KeyTool)) {"Can't find $KeyTool" | Add-Content $LogFile; exit 1}
 if (!(Test-Path $CaCerts)) {"Can't find $CaCerts" | Add-Content $LogFile; exit 1}
 

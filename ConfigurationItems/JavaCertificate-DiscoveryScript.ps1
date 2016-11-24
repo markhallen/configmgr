@@ -72,13 +72,14 @@ $CaCerts = $JavaHome + '\lib\security\cacerts'
 <#
  Test that all the relevant paths have been formed correctly
 #>
-if (!(Test-Path $JavaHome)) {exit}
-if (!(Test-Path $KeyTool)) {exit}
-if (!(Test-Path $CaCerts)) {exit}
+if (!(Test-Path $JavaHome)) {Write-Host "JavaHome error: $JavaHome";exit}
+if (!(Test-Path $KeyTool)) {Write-Host "Can't find: $JavaHome";exit}
+if (!(Test-Path $CaCerts)) {Write-Host "Can't find: $JavaHome";exit}
 
 <#
  Iterate through the array of certificates check if they already exist in the certificate store
 #>
-# if any of the certificates is missing the script will return 'Non-Compliant' and exit immediately, this is a requirement for the ConfigMgr compliance failure status
+# if any of the certificates is missing the script will return 'Non-Compliant' and exit immediately
 $Certificates | ForEach-Object { if( (& $KeyTool -list -keystore $CaCerts -storepass changeit -alias $_ -noprompt) -like "keytool error: java.lang.Exception: Alias <*> does not exist" ) { Write-Host 'Non-Compliant';exit } }
+# Returning 'Compliant' is a requirement for a ConfigMgr compliance setting that uses PowerShell
 Write-Host 'Compliant'
