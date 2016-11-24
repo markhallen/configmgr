@@ -14,17 +14,42 @@
 
 function Get-JavaHomeLocation
 {
-    $architecture = Get-WmiObject Win32_OperatingSystem | Select -ExpandProperty OSArchitecture
-
-    switch ($architecture)
+    $OSArchitecture = Get-WmiObject -Class Win32_OperatingSystem | Select-Object -ExpandProperty OSArchitecture
+    
+    switch ($OSArchitecture)
     {
         '32-bit' { $javaPath = 'HKLM:\SOFTWARE\JavaSoft' }
         '64-bit' { $javaPath = 'HKLM:\SOFTWARE\Wow6432Node\JavaSoft' }
+        Default  { return 'Unable to determine OS architecture'}
     }
+    
+    if (Test-Path -Path $javaPath)
+    {
+        try
+        {
+            $javaPathRegedit =  Get-ChildItem -Path $javaPath -Recurse -ErrorAction Stop
+            [bool]$foundCurrentVersion = ($javaPathRegedit| ForEach-Object {($_ | Get-ItemProperty).PSObject.Properties} | Select-Object -ExpandProperty Name -Unique).Contains('CurrentVersion')
+        }
+        catch
+        {
+            return $_.Exception.Message
+        }
 
-    [string]$currentVersion = Get-ChildItem $javaPath -Recurse | %{($_ | Get-ItemProperty).Psobject.Properties | ?{$_.Name -eq 'CurrentVersion'} } | Select-Object -ExpandProperty Value -Unique -First 1
-    Get-ItemProperty "$javaPath\Java Runtime Environment\$currentVersion" -Name JavaHome | Select-Object -ExpandProperty JavaHome
-} 
+        if ($foundCurrentVersion)
+        {
+            [string]$currentVersion = $javaPathRegedit | ForEach-Object {($_ | Get-ItemProperty).PSObject.Properties | Where-Object {$_.Name -eq 'CurrentVersion'} } | Select-Object -ExpandProperty Value -Unique -First 1
+            Get-ItemProperty -Path "$javaPath\Java Runtime Environment\$currentVersion" -Name JavaHome | Select-Object -ExpandProperty JavaHome
+        }
+        else
+        {
+            return "Unable to retrieve CurrentVersion"
+        }
+    }
+    else
+    {
+        return "$env:PROCESSOR_ARCHITECTURE : $javaPath not found"
+    }
+}
 
 <#
  *** Customise here only ***
