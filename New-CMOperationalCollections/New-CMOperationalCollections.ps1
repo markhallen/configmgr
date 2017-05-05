@@ -85,7 +85,7 @@ $CurrentDrive = "$($pwd.Drive.Name):"
 # Import the Configuration Manager PowerShell module
 Import-Module ($env:SMS_ADMIN_UI_PATH.Substring(0,$env:SMS_ADMIN_UI_PATH.Length – 5) + '\ConfigurationManager.psd1') | Out-Null
 
-#CM12 cmdlets need to be run from the CM12 drive
+#CM cmdlets need to be run from the CM drive
 if (-not (Get-PSDrive -Name $SiteCode))
 {
     Write-Error "There was a problem loading the Configuration Manager powershell module and accessing the site's PSDrive."
