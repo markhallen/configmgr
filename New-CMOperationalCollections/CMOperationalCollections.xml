@@ -1,4 +1,4 @@
-<Collections>
+﻿<Collections>
 	<Collection>
 		<Name>Clients | All</Name>
 		<Query>select SMS_R_SYSTEM.ResourceID,SMS_R_SYSTEM.ResourceType,SMS_R_SYSTEM.Name,SMS_R_SYSTEM.SMSUniqueIdentifier,SMS_R_SYSTEM.ResourceDomainORWorkgroup,SMS_R_SYSTEM.Client from SMS_R_System where SMS_R_System.Client = 1</Query>
@@ -298,6 +298,11 @@
 		<Name>Workstations | Windows 10 v1607</Name>
 		<Query>select SMS_R_SYSTEM.ResourceID,SMS_R_SYSTEM.ResourceType,SMS_R_SYSTEM.Name,SMS_R_SYSTEM.SMSUniqueIdentifier,SMS_R_SYSTEM.ResourceDomainORWorkgroup,SMS_R_SYSTEM.Client from SMS_R_System where SMS_R_System.Build like '10.0.14393%'</Query>
 		<Description>All workstations with Windows 10 operating system v1607</Description>
+	</Collection>
+	<Collection>
+		<Name>Workstations | Windows 10 v1703</Name>
+		<Query>select SMS_R_SYSTEM.ResourceID,SMS_R_SYSTEM.ResourceType,SMS_R_SYSTEM.Name,SMS_R_SYSTEM.SMSUniqueIdentifier,SMS_R_SYSTEM.ResourceDomainORWorkgroup,SMS_R_SYSTEM.Client from SMS_R_System where SMS_R_System.Build like '10.0.15063%'</Query>
+		<Description>All workstations with Windows 10 operating system v1703</Description>
 	</Collection>
 	<Collection>
 		<Name>Workstations | Windows 10 Current Branch (CB)</Name>
